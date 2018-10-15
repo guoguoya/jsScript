@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "version-upgrade": "node ./versionUpgrade.js",
-    "version-upgrade-feature": "node ./versionUpgrade.js method=feature",
-    "version-upgrade-version": "node ./versionUpgrade.js method=version"
+    "version-upgrade-feature": "node versionUpgrade.js method=feature",
+    "version-upgrade-version": "node/versionUpgrade.js method=version"
   },
   "repository": {
     "type": "git",
