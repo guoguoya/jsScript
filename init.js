@@ -14,8 +14,8 @@ log(packageJson);
 log(basePackageJson);
 
 function mergePackage(a, b) {
-    if (a['dbvVersion'] !== b['dbvVersion']) {
-        console.error('dbv 基础配置已经升级，请仔细比对项目升级前后的差异');
+    if (a['initVersion'] !== b['initVersion']) {
+        console.error('基础配置已经升级，请仔细比对项目升级前后的差异');
     }
 
     Object.keys(b).forEach((key) => {

@@ -21,7 +21,7 @@ function execAsync(src) {
     return new Promise((resolve, reject) => {
         const process = childProcess.exec(src, function(error) {
             if (error) {
-                reject();
+                reject(error);
             } else {
                 resolve();
             }
@@ -53,19 +53,20 @@ function execCommannd() {
         const v = `${v0}.${v1}.${v2}`;
         newPackageJson.version = v;
         Promise.resolve().then(() => {
-            fs.writeFileSync('temp.json', JSON.stringify(newPackageJson, null, 2));
+            fs.writeFileSync('package.json', JSON.stringify(newPackageJson, null, 2));
         }).then(() => {
-            execAsync('git add package.json');
+            return execAsync('git add package.json');
         }).then(() => {
-            execAsync('git commit -m \'version upgrade\' ');
+            return execAsync('git commit -m \'version upgrade\' ');
         }).then(() => {
-            execAsync('git push origin master');
+            return execAsync('git push origin master');
         }).then(() => {
-            execAsync(`git tag ${v}`);
+            return execAsync(`git tag ${v}`);
         }).then(() => {
-            execAsync(`git push origin ${v}`)
+            return execAsync(`git push origin ${v}`)
         }).then(() => {
-            console.log('upgrade version success\n');
+        }).catch((e) => {
+            console.log(e);
         });
     } catch(e) {
         console.error(e);
