@@ -10,29 +10,24 @@ const tempPackage = './package-temp.json';
 const packageJson = require(path.resolve(rootPath, './package.json'));
 const basePackageJson = require(path.resolve(baseConfigPath, './package.json'));
 
-log(packageJson);
-log(basePackageJson);
-
 function mergePackage(a, b) {
     if (a['initVersion'] !== b['initVersion']) {
         console.error('基础配置已经升级，请仔细比对项目升级前后的差异');
     }
 
     Object.keys(b).forEach((key) => {
-        if (key !== 'dbvVersion') {
+        if (key !== 'initVersion') {
             Object.keys(b[key]).forEach((k) => {
                 a[key][k] = b[key][k];
             });
         }
     });
 
-    a['dbvVersion'] = b['dbvVersion'];
+    a['initVersion'] = b['initVersion'];
     return a;
 }
 
 const newPackageJson = mergePackage(packageJson, basePackageJson);
-
-log(newPackageJson);
 
 function execAsync(src) {
     return new Promise((resolve, reject) => {
